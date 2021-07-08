@@ -10,14 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from dotenv import load_dotenv
 from pathlib import Path
 import os
-import sys
-
-load_dotenv()
-env_path = Path('.')/'.env'
-load_dotenv(dotenv_path=env_path)
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -45,7 +39,6 @@ INSTALLED_APPS = [
     # Third Party
     'rest_framework',
     'rest_framework.authtoken',
-    'django_extensions',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -91,16 +84,32 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 DATABASES = {
-    'default': {
+    'development': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
+        'NAME': os.getenv('DEV_DB_NAME'),
+        'USER': os.getenv('DEV_DB_USER'),
+        'PASSWORD': os.getenv('DEV_DB_PASSWORD'),
+        'HOST': os.getenv('DEV_DB_HOST'),
+        'PORT': os.getenv('DEV_DB_PORT'),
     },
-}
 
+    'production': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('PROD_DB_NAME'),
+        'USER': os.getenv('PROD_DB_USER'),
+        'PASSWORD': os.getenv('PROD_DB_PASSWORD'),
+        'HOST': os.getenv('PROD_DB_HOST'),
+        'PORT': os.getenv('PROD_DB_PORT'),
+    },
+
+    'test': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'vehicle_registration.sqlite3'),
+        'TEST': {
+            'NAME': os.path.join(BASE_DIR, 'test_db_vehicle_registration.sqlite3'),
+        }
+    }
+}
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
