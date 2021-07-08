@@ -5,7 +5,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = []
 
-DATABASES['default'] = DATABASES['prod_mysql']
+DATABASES['default'] = DATABASES['production']
 
 if 'test' in sys.argv or 'pytest' in sys.argv:
     DATABASES['default'] = DATABASES['test']

@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'development': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': os.getenv('DEV_ENGINE'),
         'NAME': os.getenv('DEV_DB_NAME'),
         'USER': os.getenv('DEV_DB_USER'),
         'PASSWORD': os.getenv('DEV_DB_PASSWORD'),
@@ -94,7 +94,7 @@ DATABASES = {
     },
 
     'production': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': os.getenv('PROD_ENGINE'),
         'NAME': os.getenv('PROD_DB_NAME'),
         'USER': os.getenv('PROD_DB_USER'),
         'PASSWORD': os.getenv('PROD_DB_PASSWORD'),
