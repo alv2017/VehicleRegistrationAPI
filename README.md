@@ -48,7 +48,7 @@ a) Session Based Authentication;
 
 Demo Account: 
 
-username: **registration_manager**; password: *good-day**
+username: **registration_manager**; password: **good-day**
 
 b) Token Authentication;
 
