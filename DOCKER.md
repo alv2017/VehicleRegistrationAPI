@@ -1,18 +1,32 @@
-# Docker Development Container
+# Running Development Server in Docker
 
-You can run the application using pre-configured Docker container.
-The container runs PostgreSQL database version 12.8, and pgAdmin4.
+### Running PostgreSQL Database in a Docker Container
 
-The container is defined in **docker-compose.yml** file.
+Instead of installing a database server on your local computer, it is worth considering running a database
+in a Docker container. Everything remains the same, as if you were running the application locally, except
+that the database now runs in the Docker container. 
 
-In order to run the container you need to create an enviroment file,
-let's call it **.dockernv**, where you have to define all the enviromental
-variables mentioned in **docker-compose.yml**.
+The container runs the PostgreSQL database image 12.9-bullseye. It runs 12.9 version of the
+Postgres database, and it is based on Debian Bullseye. 
 
-Finally, you need to adjust the Django application settings, to make it
-consume the PostgreSQL database running in the container. 
+The Docker setup is defined in **docker-compose-postgres.yml** file.
+The environment variables are defined in **docker-postgres.env** file. The variables
+defined in the file can be modified, as per needs and requirements, or the file can be used as is.
 
-As per current Docker setup, PostgreSQL database is running on port 
-**5432**, on IP address **192.168.0.2**; the pgAdmin4 is running on 
-port **80**, on IP address **192.168.0.3**.
+Running Postgres database container:
+
+    docker-compose -f docker-compose-postgres.yml --env-file=./docker/postgres/docker-postgres.env up
+
+
+### Running Application Development Server in a Docker Container
+
+The application containers can be started with the command:
+
+    docker-compose up 
+
+For implementation details see:
+
+1) docker-compose.yml: docker compose file
+2) docker/django/Dockerfile: Dockerfile that allows to assemble Django application image
+3) docker/django/entrypoint.sh: Shell script specifying application entry point.
 

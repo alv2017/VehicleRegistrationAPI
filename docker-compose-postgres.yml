@@ -1,4 +1,4 @@
-# Development Container
+# Postgres Container
 
 version: '3.7'
 
@@ -10,7 +10,7 @@ services:
     # automatically restarts the container
     restart: always
 
-    env_file: ./.env
+    env_file: ./docker/postgres/docker-postgres.env
 
     volumes:
       - postgres_data_dev:/var/lib/postgresql/data
@@ -21,20 +21,17 @@ services:
       POSTGRES_DATABASE: ${DB_NAME}
       PGDATA: /var/lib/postgresql/data/pgdata
 
-  django:
-    container_name: api
-    init: true
-    build:
-      context: .
-      dockerfile: ./docker/django/Dockerfile
-    depends_on:
-      - db
-    env_file: ./.env
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./src:/app
+    networks:
+      app_net:
+        ipv4_address: "192.168.0.2"
 
 volumes:
   postgres_data_dev:
+
+networks:
+  app_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.0.0/24"
 
