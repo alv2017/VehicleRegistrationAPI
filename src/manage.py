@@ -25,7 +25,7 @@ def main():
 
 if __name__ == '__main__':
     dotenv.load_dotenv(
-        os.path.join(os.path.dirname(__file__), '.env')
+        os.path.join(os.path.dirname(__file__), '../.env')
     )
 
     main()

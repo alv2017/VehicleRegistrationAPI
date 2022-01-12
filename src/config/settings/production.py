@@ -7,9 +7,6 @@ ALLOWED_HOSTS = []
 
 DATABASES['default'] = DATABASES['production']
 
-if 'test' in sys.argv or 'pytest' in sys.argv:
-    DATABASES['default'] = DATABASES['test']
-
 SECURE_SSL_REDIRECT = True
 
 SESSION_COOKIE_SECURE = True
